@@ -26,6 +26,8 @@ ENV LC_ALL en_US.UTF-8
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && sudo apt-get install oracle-java8-set-default && rm -f /var/cache/apt/*.bin
 
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/
+
 # Set user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins &&\
     echo "jenkins:jenkins" | chpasswd
