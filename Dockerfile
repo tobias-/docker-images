@@ -11,7 +11,7 @@ MAINTAINER Tobias Olsson <tobias@olsson.be>
 run locale-gen en_US.UTF-8 &&\
     apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
-    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends openssh-server wget software-properties-common groovy2 &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends openssh-server wget software-properties-common &&\
     apt-get -q autoremove &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin &&\
     sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd &&\
@@ -24,7 +24,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install Oracle JDK 8 (latest stable edition)
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && sudo apt-get install oracle-java8-set-default && rm -f /var/cache/apt/*.bin
+RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && sudo apt-get install oracle-java8-set-default groovy2 && rm -f /var/cache/apt/*.bin
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/
 
