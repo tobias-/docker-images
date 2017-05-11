@@ -8,9 +8,9 @@ MAINTAINER Tobias Olsson <tobias@olsson.be>
 # Add locales after locale-gen as needed
 # Upgrade packages on image
 # Preparations for sshd
-run apt install -y --no-install-recommends locales &&\
+run apt-get -q update &&\
+    apt-get install -y --no-install-recommends locales &&\
     locale-gen en_US.UTF-8 &&\
-    apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends openssh-server wget software-properties-common &&\
     apt-get -q autoremove &&\
