@@ -1,5 +1,5 @@
 # This Dockerfile is used to build an image containing basic stuff to be used as a Jenkins slave build node.
-FROM ubuntu:xenial
+FROM ubuntu:16.04
 MAINTAINER Tobias Olsson <tobias@olsson.be>
 
 # In case you need proxy
@@ -8,7 +8,8 @@ MAINTAINER Tobias Olsson <tobias@olsson.be>
 # Add locales after locale-gen as needed
 # Upgrade packages on image
 # Preparations for sshd
-run locale-gen en_US.UTF-8 &&\
+run apt install -y --no-install-recommends locales &&\
+    locale-gen en_US.UTF-8 &&\
     apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends openssh-server wget software-properties-common &&\
@@ -24,7 +25,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install Oracle JDK 8 (latest stable edition)
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && apt-get install -y git mercurial subversion oracle-java8-set-default groovy2 && rm -f /var/cache/apt/*.bin
+RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && apt-get install --no-install-recommends -y git mercurial subversion oracle-java8-set-default groovy2 && rm -f /var/cache/apt/*.bin
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/
 
