@@ -24,7 +24,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install Oracle JDK 8 (latest stable edition)
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && apt-get install -y oracle-java8-set-default groovy2 && rm -f /var/cache/apt/*.bin
+RUN add-apt-repository ppa:webupd8team/java && apt-get update && apt-get clean && apt-get install -y oracle-java8-installer && apt-get install -y git mercurial subversion oracle-java8-set-default groovy2 && rm -f /var/cache/apt/*.bin
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/
 
